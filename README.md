@@ -5,6 +5,8 @@ This tool has been specifically designed to help translators and developers comm
 Hands in Glovestries to bring optimal answers to this process' inherent issues, such as:
 
 •	Clarity in an occasionalfairly large amount of information
+
 •	Slow reactivity of parties
+
 •	Multiplication of platforms
 
