@@ -1,0 +1,550 @@
+html, body {
+ margin:0;
+ padding:0;
+ }
+ 
+ body
+{
+	font-family: Helvetica;	   
+}
+
+html
+{
+	font-size: 62.5%;
+	overflow-y: scroll
+}
+
+p
+{
+	margin: 12px;
+	font-size : 1.2rem;
+}
+
+/* gros titre*/
+h1
+{
+    font-size: 1.5rem;
+	color: #23468f;
+	text-align: center;
+}
+
+h2
+{
+	font-style: normal;
+    font-size : 1.2rem;
+	margin: 5px 5px 5px 5px;
+	color: #23468f;
+	
+}
+
+/* petit titre*/
+h3
+{
+	font-style: normal;
+    font-size : 1.2rem;
+	margin: 15px 0px 5px 0px;
+	
+}
+
+h4
+{
+	color: #23468f;
+	font-size : 14px;
+	padding: 2px;
+	margin: 0px 0px 10px 0px;
+	background-color: #adc1eb;
+	font-weight: normal;
+}
+
+h5
+{
+	color: #23468f;
+	font-size : 14px;
+	padding: 5px;
+	margin: 0;
+	background-color: #84a2e1;
+}
+
+/* inactive */
+h7
+{
+	color: #888888;
+}
+
+header
+{
+	text-align: center;
+	border-radius : 15px 15px 0px 0px;
+	font-size : 1.2rem;
+	background-color: #84a2e1;
+	margin-bottom: 1px;
+	margin-top: -60px;
+	padding: 10px;
+	height: 70px;
+}
+
+/* used only in admin section */
+nav
+{
+	font-size : 1.2rem;
+	background-color: #ccdeff;
+	height: 40px;
+}
+
+.boutonnav
+{
+	text-align: center;
+	height: 33px;
+	width: 90px;
+	font-size : 1.7rem;	
+	padding-top: 7px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #000099;
+	display: inline-block;
+}
+
+.boutonnav:hover
+{
+	background-color: #e5efff;
+	cursor: pointer;
+}
+
+table, th, td {
+    border: 1px solid #999999;
+    border-collapse: collapse;
+	padding: 5px;
+	background-color: #fcfcfc;
+}
+
+section
+{
+	
+}
+
+article:hover {
+    background-color: #e1e1e1;
+}
+
+
+article:target {
+    height:100%;
+	background-color: black;
+}
+
+/* article parent */
+article
+{
+	overflow:hidden;
+	width: 649px;
+	height:80px;	
+	font-size : 1.2rem;
+}
+
+.blocpriority
+{
+	height: 28px;
+	padding-top: 3px;
+	width: 31px;
+	float: left;
+	text-align: center;
+	margin-right: 10px;
+	font-family: impact;
+	font-size: 18px;
+}
+
+/* HEADER article non déroulé */
+.article
+{	
+	background-color: #ececec;
+	width: 649px;
+	height:80px;	
+	cursor: pointer;
+    overflow:hidden;
+    display:inline-block;
+}
+
+/* HEADER article déroulé */
+.articlegrand
+{
+	background-color: #ececec;
+	width: 649px;
+	height:100%;	
+	min-height: 80px;
+	
+}
+
+.Noresult
+{
+	font-size : 1.2rem;
+	background-color: #fcfcfc;
+	width:799px;
+	height:100%;	
+	overflow: auto;
+	display: inline-block;
+	text-align: center;
+	line-height: 60px;
+	vertical-align: center;
+	
+}
+
+aside
+{
+	font-size : small;
+	display: inline-block;
+	background-color: #ececec;
+	height: 80px;
+	width: 150px;
+	float: right;
+}
+
+/* Main frame */
+#mainframe 
+{
+	font-size : 0;
+	margin: auto; /*pour centrer*/
+	width: 1000px;
+	height: 100%;
+	min-height: 100vh;
+	background-image: url(images/fondmainframe.gif);
+	
+}
+
+/* Main frame admin*/
+#mainframeadmin
+{
+	font-size : 0;
+	margin: auto; /*pour centrer*/
+	width: 1000px;
+	height: 100%;
+	min-height: 100vh;
+	
+}
+
+#menufilter
+{
+	font-size : 1.2rem;
+	vertical-align: top;
+	display: inline-block;
+	background-color: #99b3e6;
+	width: 200px;
+	text-align: center;
+	margin-right: 1px;
+}
+
+#sectionarticle
+{
+	font-size : 0;
+	display: inline-block;
+	padding-bottom: 46px;
+	min-height: 60vh;
+	background-image: url(images/logoback.png);
+    background-repeat: no-repeat;
+	background-position: 100px;
+}
+
+.conteneur
+{
+	height : 80px;
+	word-wrap: break-word;
+	overflow:hidden;
+	margin-bottom: 1px;
+}
+
+.adminframe
+{
+	margin-top: 1px;
+	padding: 10px;
+	font-size : 1.2rem;
+	background-color: #e5eeff;
+	min-height: 300px;
+}
+
+
+.conteneuropen
+{
+	height : 100%;
+}
+
+.answerfooter
+{
+	height : 20px;
+	width : 649px;
+	background-color : #ececec;
+	cursor: pointer;
+	text-align: center;
+}
+.answerfooter:hover {
+    background-color: #f3f3f3;
+}
+
+
+.articleexpand
+{
+	background-color: #dcdcdc;
+	display: block;
+	height:100%;
+	margin-bottom: 1px;
+}
+
+/* bloc source + string ID */
+.querysourcetext
+{
+	padding: 0px 20px 0px 50px;
+	background-color: #ececec;
+	display: inline-block;
+	width : 580px;
+	margin-bottom: 1px;
+}
+
+/* style pour p source + string ID */
+.queryinfo
+{
+	font-size : 1.2rem;
+	margin : 0px;
+	padding: 1px 10px 1px 10px;
+	background-color: #fcfcfc;
+}
+
+footer
+{
+	margin: auto;
+	font-size : 1.2rem;
+	height: 46px;
+	width: 1000px;
+	background-color: #eeeeee;
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+#conteneurpagination
+{
+}
+
+
+.pagination {
+font:12px Helvetica, sans-serif;
+padding:16px 0 0 0px;
+}
+
+.pagination a {
+background:#fff;
+border:1px solid #8c8c8c;
+color:#8c8c8c;
+margin:2px;
+/* taille boutons */
+padding:.6em .8em;
+text-decoration:none
+}
+
+.pagination a:hover {
+background:#ffffff;
+border:1px solid #4d4d4d;
+color:#4d4d4d;
+}
+
+.pagination span.inactive {
+background:#fff;
+border:1px solid #ffffff;
+color:#f0f0ff;
+margin:2px;
+padding:.6em .8em;
+}
+
+.pagination span.active {
+background:#ffffff;
+border:1px solid #4d4d4d;
+color:#4d4d4d;
+font-weight:700;
+margin:2px;
+padding:.6em .8em;
+}
+
+.divimgheaderquery 
+{
+	height: 50px;
+	width: 50px;
+	float: right;
+	margin: 0px 0px 0px 10px;
+	padding: 1px 1px 1px 1px;
+	background-color: black;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+div.texticonheader 
+{
+	margin: 30px 0px 0px 1px;
+	text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
+	height: 50px;
+	width: 50px;
+	font-size: 1.5rem;
+	color: #FFFFFF;
+	font-family: impact;
+	height: 50px;
+	text-align: center;
+}
+
+div.headerquery
+{
+    text-align: justify;
+    text-justify: inter-word;
+	margin: 12px;
+	font-size : 14px;
+}
+
+input.searchfield
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+	font-family: monospace;
+	padding: 2px;
+}
+
+input.button
+{
+	margin: 10px;
+}
+
+.filterbloc
+{
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+	background-color: #d6e0f5;
+	text-align: center;
+	width: 100%;
+	padding-bottom: 10px;
+}
+
+.filterblocreset
+{
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+	text-align: center;
+	width: 100%;
+	padding: 10px 0 10px 0;
+	background-color:#ffb3b3; 
+}
+
+textarea 
+{
+    resize: none;
+}
+
+
+.myButton {
+	background-color:#fcfcfc;
+	border:1px solid #aaaaaa;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-size:12px;
+	padding:2px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background-color:#ececec;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+/* preloading hover images */
+body:after{
+ display:none;
+ content: url(images/trashhover.png) url(images/checkhover.png) url(images/crosshover.png) url(images/pencilhover.png) url(images/fondmainframe.gif);
+}
+
+div.buttondeletehidden input{
+    background:url(images/trash.png) no-repeat;
+    cursor:pointer;
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+
+div.buttondeletehidden input:hover{
+    background:url(images/trashhover.png) no-repeat;
+}
+
+div.buttonclosehidden input{
+    background:url(images/check.png) no-repeat;
+    cursor:pointer;
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+div.buttonclosehidden input:hover{
+    background:url(images/checkhover.png) no-repeat;
+}
+
+div.buttondeletepermhidden input{
+    background:url(images/cross.png) no-repeat;
+    cursor:pointer;
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+
+div.buttondeletepermhidden input:hover{
+    background:url(images/crosshover.png) no-repeat;
+}
+
+div.buttonedithidden input{
+    background:url(images/pencil.png) no-repeat;
+    cursor:pointer;
+    width: 15px;
+    height: 15px;
+    border: none;
+
+}
+
+div.buttonedithidden input:hover{
+    background:url(images/pencilhover.png) no-repeat;
+}
+
+.divformanswer
+{
+	margin: 10px;
+}
+
+/* used for dialogs */
+.hiddendialog
+{
+	visibility:hidden; 
+	width: 0px; 
+	height: 0px;
+	overflow: hidden;
+}
+
+/* Style button as text link */
+input[type="submit"].submitlink, input[type="submit"].submitlink:focus, input[type="submit"].submitlink:active,  
+button.submitlink, button.submitlink:focus, button.submitlink:active {
+    /* Remove all decorations to look like normal text */
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    /* Additional styles to look like a link */
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+/* Remove extra space inside buttons in Firefox */
+input[type="submit"].submitlink::-moz-focus-inner,
+button.submitlink::-moz-focus-inner {
+    border: none;
+    padding: 0;
+}

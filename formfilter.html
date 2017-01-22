@@ -1,0 +1,185 @@
+<!-- User bloc -->
+<div class="filterbloc" style="padding-top: 0px; padding-bottom:12px; display:inline-block;"> 	
+
+	<!-- Display user name -->
+	<h1><?php echo $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></h1>
+	
+	<?php		
+	if ($_SESSION['role'] == "Translator")
+	{
+		// count open queries for current user (trans)
+		$sqlcountuseropenqueries = mysqli_query($bdd, "SELECT ID FROM hig_query LEFT JOIN hig_games ON hig_games.gameID = hig_query.game WHERE reporter = '$currentuserid' AND status = 'answeredbydev' AND hig_games.game_status != 'Inactive' AND hig_query.game IN (SELECT ga_gameid FROM hig_gameaccess WHERE hig_gameaccess.ga_userID = $currentuserid)");
+		$countuseropenqueries = mysqli_num_rows($sqlcountuseropenqueries);
+		// count pending queries for current user (trans)
+		$sqlcountuserwaitingqueries = mysqli_query($bdd, "SELECT ID FROM hig_query LEFT JOIN hig_games ON hig_games.gameID = hig_query.game WHERE reporter = '$currentuserid' AND status = 'answeredbytrans' AND hig_games.game_status != 'Inactive' AND hig_query.game IN (SELECT ga_gameid FROM hig_gameaccess WHERE hig_gameaccess.ga_userID = $currentuserid)");
+		$countuserwaitingqueries = mysqli_num_rows($sqlcountuserwaitingqueries);
+	}
+	else if ($_SESSION['role'] == "Developer")
+	{
+		// count open queries for current user (dev)
+		$sqlcountuseropenqueries = mysqli_query($bdd, "SELECT ID FROM hig_query LEFT JOIN hig_games ON hig_games.gameID = hig_query.game WHERE status = 'answeredbytrans' AND hig_games.game_status != 'Inactive' AND hig_query.game IN (SELECT ga_gameid FROM hig_gameaccess WHERE hig_gameaccess.ga_userID = $currentuserid)");
+		$countuseropenqueries = mysqli_num_rows($sqlcountuseropenqueries);
+		// count pending queries for current user (dev)
+		$sqlcountuserwaitingqueries = mysqli_query($bdd, "SELECT ID FROM hig_query LEFT JOIN hig_games ON hig_games.gameID = hig_query.game WHERE status = 'answeredbydev' AND hig_games.game_status != 'Inactive' AND hig_query.game IN (SELECT ga_gameid FROM hig_gameaccess WHERE hig_gameaccess.ga_userID = $currentuserid)");
+		$countuserwaitingqueries = mysqli_num_rows($sqlcountuserwaitingqueries);		
+	} 
+	?>
+	
+	<!-- Open queries link -->
+	<form id="uqForm1" action="index.php" method="post">
+		<input type="hidden" name="status" value="<?php if ($_SESSION['role'] == 'Translator'){echo "answeredbydev";} else {echo "answeredbytrans";}?>" />
+		<?php if ($_SESSION['role'] == 'Translator'){ echo '<input type="hidden" name="reporter" value="' . $_SESSION['userID'] . '">'; }?>
+		<input type="hidden" name="reset" value="1">
+		<input style="margin-bottom:10px;" title="Your open queries" type="submit" class="submitlink" value="Open" align="center"><?php if ($countuseropenqueries < 1){echo ' (<font color="green">0</font>)';} else {echo ' (<font color="red"><b>' . $countuseropenqueries . '</b></font>)';}?>
+	</form>
+	
+	<!-- Pending queries link -->
+	<form id="uqForm2" action="index.php" method="post">
+		<input type="hidden" name="status" value="<?php if ($_SESSION['role'] == 'Translator'){echo "answeredbytrans";} else {echo "answeredbydev";}?>" />
+		<?php if ($_SESSION['role'] == 'Translator'){ echo '<input type="hidden" name="reporter" value="' . $_SESSION['userID'] . '">'; }?>
+		<input type="hidden" name="reset" value="1">
+		<input style="margin-bottom:0px;" title="Your pending queries" type="submit" class="submitlink" value="Pending" align="center"><?php if ($countuserwaitingqueries < 1){echo ' (<font color="green">0</font>)';} else {echo ' (<font color="orange"><b>' . $countuserwaitingqueries . '</b></font>)';}?>
+	</form>
+	
+</div>
+
+<!-- New query button -->
+<?php 
+if ($_SESSION['role'] == 'Translator')
+{?>
+	<div class="filterbloc"> 
+		<input id="newquery" type="submit" class="myButton" value="NEW QUERY">
+	</div>
+<?php } ?>
+
+<!-- Filters Section -->
+<form name="filters" method="post" action="index.php">
+
+	<h5>FILTERS</h5>
+	<?php $coloractive = "e5ecff"; ?>
+	
+	<!-- Status select form -->	
+	<div id="statusselect" class="filterbloc" style="width:98px; text-align: left; <?php if ($_SESSION['status'] != 'ALL'){echo " background-color:#$coloractive;";} ?>">
+	<?php if ($_SESSION['role'] == 'Translator')
+	{?>
+		<h4 align="center">STATUS</h4>
+		<input onchange="this.form.submit()" id="allstatus" type="radio" name="status" value="ALL" <?php if ($_SESSION['status'] == "ALL"){echo 'checked';} ?>> <label for ="allstatus">All</label>
+		<br>
+		<input onchange="this.form.submit()" id="statusopen" type="radio" name="status" value="answeredbydev" <?php if ($_SESSION['status'] == "answeredbydev"){echo 'checked';} ?>> <label for ="statusopen">Open</label>
+		<br>
+		<input onchange="this.form.submit()" id="statuswaiting" type="radio" name="status" value="answeredbytrans" <?php if ($_SESSION['status'] == "answeredbytrans"){echo 'checked';} ?>> <label for ="statuswaiting">Pending</label>
+		<br>
+		<input onchange="this.form.submit()" id="statusclosed" type="radio" name="status" value="closed" <?php if ($_SESSION['status'] == "closed"){echo 'checked';} ?>> <label for ="statusclosed">Closed</label>
+		
+		<!-- If the user is an admin, we display the "deleted" filter -->
+		<?php if ($_SESSION['admin'] == 'TRUE')
+		{ ?>
+			<br>
+			<input onchange="this.form.submit()" id="statusdeleted" type="radio" name="status" value="deleted" <?php if ($_SESSION['status'] == "deleted"){echo 'checked';} ?>> <label for ="statusdeleted">Deleted</label>
+		<?php }
+	}
+	else if ($_SESSION['role'] == 'Developer')
+	{ ?>
+		<h4 align="center">STATUS</h4>
+		<input onchange="this.form.submit()" id="allstatus" type="radio" name="status" value="ALL" <?php if ($_SESSION['status'] == "ALL"){echo 'checked';} ?>> <label for ="allstatus">All</label>
+		<br>
+		<input onchange="this.form.submit()" id="statuswaiting" type="radio" name="status" value="answeredbytrans" <?php if ($_SESSION['status'] == "answeredbytrans"){echo 'checked';} ?>> <label for ="statuswaiting">Open</label>
+		<br>
+		<input onchange="this.form.submit()" id="statusopen" type="radio" name="status" value="answeredbydev" <?php if ($_SESSION['status'] == "answeredbydev"){echo 'checked';} ?>> <label for ="statusopen">Pending</label>
+		<br>
+		<input onchange="this.form.submit()" id="statusclosed" type="radio" name="status" value="closed" <?php if ($_SESSION['status'] == "closed"){echo 'checked';} ?>> <label for ="statusclosed">Closed</label>
+		<?php if ($_SESSION['admin'] == 'TRUE')
+		{ ?>
+		<br>
+		<input onchange="this.form.submit()" id="statusdeleted" type="radio" name="status" value="deleted" <?php if ($_SESSION['status'] == "deleted"){echo 'checked';} ?>> <label for ="statusdeleted">Deleted</label>
+	<?php }} ?>
+	</div>
+
+	<!-- Priority select form -->	
+	<div id="prioselect" class="filterbloc" style="width:98px; text-align: left; <?php if ($_SESSION['priority'] != 'ALL'){echo " background-color:#$coloractive;";} ?>">
+		<h4 align="center">PRIORITY</h4>
+		<input onchange="this.form.submit()" id="allprio" type="radio" name="priority" value="ALL" <?php if ($_SESSION['priority'] == "ALL"){echo 'checked';} ?>> <label for ="allprio">All</label>
+		<br>
+		<input onchange="this.form.submit()" id="priohigh" type="radio" name="priority" value="1" <?php if ($_SESSION['priority'] == "1"){echo 'checked';} ?>> <label for ="priohigh">1 - High</label>
+		<br>
+		<input onchange="this.form.submit()" id="prionormal" type="radio" name="priority" value="2" <?php if ($_SESSION['priority'] == "2"){echo 'checked';} ?>> <label for ="prionormal">2 - Normal</label>
+		<br>
+		<input onchange="this.form.submit()" id="priolow" type="radio" name="priority" value="3" <?php if ($_SESSION['priority'] == "3"){echo 'checked';} ?>> <label for ="priolow">3 - Low</label>
+		
+		<!-- If the user is an admin, we add an empty div to match the added deleted filter on its left -->
+		<?php if ($_SESSION['admin'] == 'TRUE')
+		{ ?>
+		<div style="height:19px;"></div>
+		<?php } ?>
+	</div>
+
+	<!-- User select form -->	
+	<div id="userselect" class="filterbloc" <?php if ($_SESSION['reporter'] != 'ALL'){echo "style=\"background-color:#$coloractive;\"";} ?>>
+		<h4>USER</h4>		
+		<select name="reporter" onchange="this.form.submit()">
+			<option <?php if ($_SESSION['reporter'] == "ALL"){echo 'selected="selected"';} ?> value="ALL" >All users</option>
+			<?php $sqlreporterfilter = mysqli_query($bdd, 'SELECT * FROM hig_user WHERE role=\'translator\' ORDER BY lastname ASC');	
+			while ($fetchreporterfilter = mysqli_fetch_array($sqlreporterfilter))
+				{
+					echo '<option'; if ($_SESSION['reporter'] == $fetchreporterfilter['userID']){echo ' selected="selected"';} echo ' value="' . $fetchreporterfilter['userID'] . '">' . $fetchreporterfilter['firstname'] . ' ' . $fetchreporterfilter['lastname'] . '</option>';
+				}
+			?>
+		</select>
+	</div>
+			
+			
+	<!-- Game select form -->	
+	<!-- The list is not displayed if content <= 1 (user only have acces to one game or 0) -->
+	<?php $sqlgamescurrentuser = mysqli_query($bdd, "SELECT * FROM hig_games WHERE hig_games.gameID IN (SELECT ga_gameid FROM hig_gameaccess WHERE hig_gameaccess.ga_userID = $currentuserid) AND game_status != 'Inactive' ORDER BY nameshort ASC");	
+	$rowCount = mysqli_num_rows($sqlgamescurrentuser);
+	if ($rowCount > 1)
+	{?>	
+		<div id="gameselect" class="filterbloc" <?php if ($_SESSION['game'] != 'ALL'){echo "style=\"background-color:#$coloractive;\"";} ?>>
+			<h4>GAME</h4>
+			<select name="game" onchange="this.form.submit();">
+			<option <?php if ($_SESSION['game'] == "ALL"){echo 'selected="selected"';} ?> value="ALL" >All games</option>
+			<?php 
+				while ($fetchgamescurrentuser = mysqli_fetch_array($sqlgamescurrentuser))
+					{
+						echo '<option'; if ($_SESSION['game'] == $fetchgamescurrentuser['gameID']){echo ' selected="selected"';} echo ' value="' . $fetchgamescurrentuser['gameID'] . '">' . $fetchgamescurrentuser['nameshort'] . '</option>';
+					}
+			echo '</select> 
+		</div>'; 
+	} ?>
+			
+</form>	
+
+<!-- Reset Button (displayed only if one filter or more are active) -->
+<?php if ($_SESSION['game'] != "ALL" OR $_SESSION['reporter'] != "ALL" OR $_SESSION['priority'] != "ALL" OR $_SESSION['status'] != "ALL" OR $search != "" OR $searchID != ""){?>	
+<h5>RESET FILTERS</h5>
+<div class="filterblocreset"> 
+	<form name="resetfilersform" method="post" action="index.php">
+		<input class="button" name="resetfilters" value="RESET" hidden>
+		<input type="submit" class="myButton" value="RESET">
+	</form>
+</div>
+<?php } ?>
+
+<!-- Search by QID form -->
+<div id="searchbyiddiv" class="filterbloc" <?php if (isset ($_GET['searchID'])){echo "style=\"background-color:#$coloractive;\"";}?>>
+	<h5>SEARCH BY QID</h5>
+	<form name="SearchbyID" action="index.php" method="get">
+		<input type="text" class="searchfield" name="QID" style="margin-top:10px;" size="6" value="<?php if (isset($_GET['searchID']) AND is_numeric($_GET['searchID'])) {echo $_GET['searchID'];} ?>">
+	</form>
+</div>
+	
+	
+<!-- Per Page select form -->
+<form name="perpage" method="post" action="index.php">
+	<div class="filterbloc" style="padding-bottom:55px;">
+		<h5>RESULTS PER PAGE</h5>
+		<select name="perpage" onchange="this.form.submit()" style="margin-top:10px;">
+			<option <?php if ($_SESSION['perpage'] == '5'){echo 'selected="selected"';} ?>>5</option>
+			<option <?php if ($_SESSION['perpage'] == '10'){echo 'selected="selected"';} ?>>10</option>
+			<option <?php if ($_SESSION['perpage'] == '15'){echo 'selected="selected"';} ?>>15</option>
+			<option <?php if ($_SESSION['perpage'] == '20'){echo 'selected="selected"';} ?>>20</option>
+			<option <?php if ($_SESSION['perpage'] == '50'){echo 'selected="selected"';} ?>>50</option>
+			<option <?php if ($_SESSION['perpage'] == '100'){echo 'selected="selected"';} ?>>100</option>
+		</select>
+	</div>
+</form>
