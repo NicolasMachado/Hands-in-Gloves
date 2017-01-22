@@ -4,7 +4,7 @@ This tool has been specifically designed to help translators and developers comm
 
 Hands in Gloves brings optimal answers to this process' inherent issues, such as:
 
-•	Clarity in an occasionalfairly large amount of information
+•	Lack of clarity due to a large amount of information
 
 •	Slow reactivity of parties
 
