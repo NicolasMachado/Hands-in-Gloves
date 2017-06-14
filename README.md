@@ -10,3 +10,5 @@ Hands in Gloves brings optimal answers to this process' inherent issues, such as
 
 •	Multiplication of platforms
 
+You can have a look at the user guide using the following link:
+https://www.dropbox.com/s/bffkqwrwz40m7mp/Hands%20in%20Gloves%20-%20User%20Guide.docx?dl=0
